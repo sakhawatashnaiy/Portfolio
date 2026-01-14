@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800" preserveAspectRatio="xMidYMid meet">
+  <defs>
+    <radialGradient id="g1" cx="30%" cy="25%">
+      <stop offset="0%" stop-color="#89f7fe" stop-opacity="1"/>
+      <stop offset="60%" stop-color="#66a6ff" stop-opacity="0.85"/>
+      <stop offset="100%" stop-color="#0f172a" stop-opacity="0.06"/>
+    </radialGradient>
+    <linearGradient id="g2" x1="0" x2="1">
+      <stop offset="0%" stop-color="#7c3aed" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#06b6d4" stop-opacity="0.9"/>
+    </linearGradient>
+    <filter id="f1" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="20" result="b"/>
+      <feBlend in="SourceGraphic" in2="b" />
+    </filter>
+  </defs>
+
+  <!-- background soft blob -->
+  <g filter="url(#f1)">
+    <ellipse cx="600" cy="180" rx="220" ry="180" fill="url(#g2)" opacity="0.22" />
+    <ellipse cx="150" cy="640" rx="260" ry="200" fill="#0ea5a2" opacity="0.06" />
+  </g>
+
+  <!-- central rounded card -->
+  <rect x="120" y="160" width="560" height="420" rx="28" fill="#071427" opacity="0.85" stroke="#0ea5a2" stroke-opacity="0.06"/>
+
+  <!-- circular avatar -->
+  <circle cx="320" cy="320" r="84" fill="url(#g1)" stroke="#ffffff" stroke-opacity="0.18" />
+
+  <!-- accent lines -->
+  <path d="M220 520 C300 480, 420 500, 520 460" stroke="#60a5fa" stroke-width="4" fill="none" stroke-opacity="0.18" stroke-linecap="round"/>
+
+  <!-- small squares / UI mock -->
+  <rect x="420" y="220" width="180" height="28" rx="8" fill="#ffffff" opacity="0.06"/>
+  <rect x="420" y="260" width="120" height="18" rx="6" fill="#ffffff" opacity="0.04"/>
+  <rect x="420" y="300" width="180" height="18" rx="6" fill="#ffffff" opacity="0.04"/>
+
+  <!-- tiny sparkle -->
+  <g transform="translate(520,120)">
+    <rect x="-4" y="-16" width="8" height="32" rx="2" fill="#fff" opacity="0.9" transform="rotate(20)" />
+    <rect x="-14" y="-4" width="28" height="8" rx="3" fill="#fff" opacity="0.7" transform="rotate(20)" />
+  </g>
+
+  <!-- caption text (vector) -->
+  <g transform="translate(160,620)" fill="#93c5fd" font-family="Helvetica, Arial, sans-serif" font-size="18">
+    <text x="0" y="0">Creative developer identity</text>
+  </g>
+</svg>
