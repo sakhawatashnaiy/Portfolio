@@ -1,12 +1,24 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Mail, MapPin, Send, ExternalLink } from 'lucide-react'
+import emailjs from '@emailjs/browser'
 
 export default function ContactSection() {
   const ref = useRef(null)
   const [inView, setInView] = useState(false)
   const [sending, setSending] = useState(false)
   const [success, setSuccess] = useState(false)
+  const [error, setError] = useState('')
   const [form, setForm] = useState({ name: '', email: '', message: '' })
+
+  useEffect(() => {
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+    if (!publicKey) return
+    try {
+      emailjs.init(publicKey)
+    } catch {
+      // ignore init errors; send() will surface issues
+    }
+  }, [])
 
   useEffect(() => {
     const el = ref.current
@@ -30,18 +42,59 @@ export default function ContactSection() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!form.name || !form.email || !form.message) {
+
+    const name = form.name.trim()
+    const email = form.email.trim()
+    const message = form.message.trim()
+
+    if (!name || !email || !message) {
       // Simple client-side validation
       return
     }
+
     setSending(true)
     setSuccess(false)
-    // fake sending delay
-    await new Promise((r) => setTimeout(r, 900))
-    setSending(false)
-    setSuccess(true)
-    setForm({ name: '', email: '', message: '' })
-    setTimeout(() => setSuccess(false), 2500)
+    setError('')
+
+    const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
+    const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
+    const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+
+    try {
+      if (!serviceId || !templateId || !publicKey) {
+        const subject = encodeURIComponent(`Portfolio contact from ${name}`)
+        const body = encodeURIComponent(
+          `Name: ${name}\nEmail: ${email}\n\nMessage:\n${message}\n\nSource: ${window.location.href}`
+        )
+        window.location.href = `mailto:sakhawatashnaiy09@gmail.com?subject=${subject}&body=${body}`
+        setError('Email sending is not configured yet. I opened your email app as a fallback.')
+        return
+      }
+
+      await emailjs.send(
+        serviceId,
+        templateId,
+        {
+          from_name: name,
+          from_email: email,
+          reply_to: email,
+          user_name: name,
+          user_email: email,
+          message,
+          source: window.location.href,
+        },
+        publicKey
+      )
+
+      setSuccess(true)
+      setForm({ name: '', email: '', message: '' })
+      setTimeout(() => setSuccess(false), 2500)
+    } catch (err) {
+		const msg = err?.text || err?.message
+		setError(msg ? `Could not send: ${msg}` : 'Could not send message. Please try again in a moment.')
+    } finally {
+      setSending(false)
+    }
   }
 
   return (
@@ -66,18 +119,44 @@ export default function ContactSection() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <label className="flex flex-col">
                     <span className="text-xs text-white/70 mb-1">Name</span>
-                    <input value={form.name} onChange={update('name')} placeholder="Your name" className="w-full bg-white/3 placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition" />
+                    <input
+                      value={form.name}
+                      onChange={update('name')}
+                      placeholder="Your name"
+                      name="name"
+                      autoComplete="name"
+                      required
+                      className="w-full bg-white/3 placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition"
+                    />
                   </label>
 
                   <label className="flex flex-col">
                     <span className="text-xs text-white/70 mb-1">Email</span>
-                    <input value={form.email} onChange={update('email')} placeholder="you@domain.com" className="w-full bg-white/3 placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition" />
+                    <input
+                      value={form.email}
+                      onChange={update('email')}
+                      placeholder="you@domain.com"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      inputMode="email"
+                      required
+                      className="w-full bg-white/3 placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition"
+                    />
                   </label>
                 </div>
 
                 <label className="flex flex-col">
                   <span className="text-xs text-white/70 mb-1">Message</span>
-                  <textarea value={form.message} onChange={update('message')} rows={6} placeholder="Tell me about your project..." className="w-full bg-white/3 placeholder:text-white/40 px-3 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition resize-none" />
+                  <textarea
+                    value={form.message}
+                    onChange={update('message')}
+                    rows={6}
+                    placeholder="Tell me about your project..."
+                    name="message"
+                    required
+                    className="w-full bg-white/3 placeholder:text-white/40 px-3 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition resize-none"
+                  />
                 </label>
 
                 <div className="flex flex-col sm:flex-row sm:items-center gap-3">
@@ -89,6 +168,10 @@ export default function ContactSection() {
                   {success && (
                     <div className="text-sm text-cyan-300 font-medium">Message sent — thanks!</div>
                   )}
+
+					{error && (
+						<div className="text-sm text-red-300 font-medium">{error}</div>
+					)}
                 </div>
               </form>
             </div>
@@ -149,7 +232,7 @@ export default function ContactSection() {
                     Example: const defaultQuery = 'Lahore, Pakistan' or '40.7128,-74.0060'
                   */}
                   {(() => {
-                    const defaultQuery = 'Lahore, Pakistan'
+                    const defaultQuery = 'Basho vallley, Gilgit baltistan'
                     const q = encodeURIComponent(defaultQuery)
                     const mapSrc = `https://www.google.com/maps?q=${q}&output=embed`
                     return (
