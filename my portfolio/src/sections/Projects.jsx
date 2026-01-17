@@ -1,13 +1,20 @@
 import React, { useMemo, useRef, useState, useEffect } from 'react'
 import { Code, ExternalLink, Tag, ArrowRight } from 'lucide-react'
 
+import ecommerceImg from '../assets/Eccomerce1.jpg'
+import chatImg from '../assets/Realtimechate.jpg'
+import clothingImg from '../assets/clothing world.jpg'
+import salonImg from '../assets/beautysaloon.jpeg'
+import realEstateImg from '../assets/Real state.jpg'
+import gymImg from '../assets/Gym website.png'
+
 export default function ProjectsSection() {
   const ref = useRef(null)
   const [inView, setInView] = useState(false)
   const itemRefs = useRef({})
   const [seen, setSeen] = useState({})
 
-  // High-level project data (images can be wired later)
+  // Project data
   const projects = useMemo(
     () => [
       {
@@ -16,6 +23,7 @@ export default function ProjectsSection() {
         desc: 'A modern ecommerce storefront with product browsing, cart, checkout flow, and a fast, responsive UI.',
         tech: ['React', 'Vite', 'Tailwind'],
         category: 'Ecommerce',
+        image: ecommerceImg,
         code: '#',
         demo: '#',
       },
@@ -25,6 +33,7 @@ export default function ProjectsSection() {
         desc: 'Fast, resilient WebSocket chat with presence and media handling.',
         tech: ['Node.js', 'Socket.io', 'React'],
         category: 'Full Stack',
+        image: chatImg,
         code: '#',
         demo: '#',
       },
@@ -34,6 +43,7 @@ export default function ProjectsSection() {
         desc: 'A modern clothing brand website with a clean catalog, product pages, and a mobile-first shopping experience.',
         tech: ['React', 'Vite', 'Tailwind'],
         category: 'Frontend',
+        image: clothingImg,
         code: '#',
         demo: '#',
       },
@@ -43,8 +53,9 @@ export default function ProjectsSection() {
         desc: 'A premium salon landing page with services, pricing, gallery, testimonials, and an online appointment CTA.',
         tech: ['React', 'Vite', 'Tailwind'],
         category: 'Business',
-        code: '#',
-        demo: '#',
+        image: salonImg,
+        code: 'https://github.com/sakhawatashnaiy/myfronentendprojects.git',
+        demo: 'https://myluxebeauty99.netlify.app/',
       },
       {
         id: 'p-realestate',
@@ -52,8 +63,9 @@ export default function ProjectsSection() {
         desc: 'A real estate showcase site with property listings, filters, featured properties, and inquiry contact flow.',
         tech: ['React', 'Vite', 'Tailwind'],
         category: 'Business',
-        code: '#',
-        demo: '#',
+        image: realEstateImg,
+        code: 'https://github.com/sakhawatashnaiy/Realstaesite.git',
+        demo: 'https://glowing-paprenjak-3ac923.netlify.app/',
       },
       {
         id: 'p-gym',
@@ -61,6 +73,7 @@ export default function ProjectsSection() {
         desc: 'A high-energy fitness website with class schedules, trainer profiles, membership plans, and strong call-to-action sections.',
         tech: ['React', 'Vite', 'Tailwind'],
         category: 'Business',
+        image: gymImg,
         code: '#',
         demo: '#',
       },
@@ -205,9 +218,17 @@ export default function ProjectsSection() {
                       {/* Screenshot area */}
                       <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-sky-500/30 via-indigo-700/40 to-slate-900/90" />
-                        <div
-                          className="relative h-full w-full bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.5),transparent_55%),radial-gradient(circle_at_bottom,_rgba(129,140,248,0.6),transparent_55%)] transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                        />
+                        {p.image ? (
+                          <img
+                            src={p.image}
+                            alt={`${p.title} preview`}
+                            loading="lazy"
+                            decoding="async"
+                            className="absolute inset-0 h-full w-full object-cover opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.05]"
+                          />
+                        ) : (
+                          <div className="relative h-full w-full bg-[radial-gradient(circle_at_top,_rgba(56,189,248,0.5),transparent_55%),radial-gradient(circle_at_bottom,_rgba(129,140,248,0.6),transparent_55%)] transition-transform duration-700 ease-out group-hover:scale-[1.05]" />
+                        )}
 
                         {/* Mask overlay fades on hover */}
                         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#050505] via-black/60 to-transparent opacity-70 transition-opacity duration-500 group-hover:opacity-0" />
