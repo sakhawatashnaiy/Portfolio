@@ -126,8 +126,8 @@ export default function ProjectsSection() {
       ref={ref}
       className={`py-16 lg:py-24 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
     >
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="rounded-3xl bg-[#050505]/95 border border-slate-900/80 shadow-xl p-6 lg:p-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
+        <div className="rounded-3xl bg-[#050505]/95 border border-slate-900/80 shadow-xl p-5 sm:p-6 lg:p-10">
           <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
               <h2 className="text-2xl lg:text-3xl font-semibold text-white">Project Gallery</h2>
@@ -141,6 +141,8 @@ export default function ProjectsSection() {
             {projects.map((p, i) => {
               const reversed = i % 2 === 1
               const show = !!seen[p.id]
+				const hasDemo = !!p.demo && p.demo !== '#'
+				const hasCode = !!p.code && p.code !== '#'
               return (
                 <article
                   key={p.id}
@@ -169,7 +171,7 @@ export default function ProjectsSection() {
                       {p.tech.map((t) => (
                         <span
                           key={t}
-                          className="inline-flex items-center gap-1 rounded-full border border-slate-800/80 bg-white/5/50 px-3 py-1 text-xs text-slate-200 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
+                          className="inline-flex items-center gap-1 rounded-full border border-slate-800/80 bg-white/5 px-3 py-1 text-xs text-slate-200 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
                         >
                           <Tag className="h-3 w-3 text-slate-400" />
                           <span className="whitespace-nowrap">{t}</span>
@@ -177,12 +179,20 @@ export default function ProjectsSection() {
                       ))}
                     </div>
 
-                    <div className="mt-5 flex flex-wrap items-center gap-3">
+                    <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                       <a
                         href={p.demo}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-sky-500 px-4 py-2 text-sm font-semibold text-slate-950 shadow-[0_18px_40px_rgba(8,_112,_184,_0.7)] transition-all duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_22px_50px_rgba(8,_112,_184,_0.9)]"
+						onClick={(e) => {
+							if (!hasDemo) e.preventDefault()
+						}}
+						aria-disabled={!hasDemo}
+						className={`inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full px-4 py-2 text-sm font-semibold shadow-[0_18px_40px_rgba(8,_112,_184,_0.7)] transition-all duration-300 ${
+							hasDemo
+								? 'bg-sky-500 text-slate-950 hover:-translate-y-1 hover:scale-[1.02] hover:shadow-[0_22px_50px_rgba(8,_112,_184,_0.9)]'
+								: 'bg-slate-800/60 text-slate-300 opacity-60 cursor-not-allowed'
+						}`}
                       >
                         <ExternalLink className="h-4 w-4" />
                         <span>Live Demo</span>
@@ -192,7 +202,15 @@ export default function ProjectsSection() {
                         href={p.code}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="group/cta inline-flex items-center gap-2 rounded-full border border-slate-700 bg-transparent px-4 py-2 text-sm font-medium text-slate-200 transition-all duration-300 hover:border-indigo-500/60 hover:bg-slate-900/60"
+						onClick={(e) => {
+							if (!hasCode) e.preventDefault()
+						}}
+						aria-disabled={!hasCode}
+						className={`group/cta inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 ${
+							hasCode
+								? 'border-slate-700 bg-transparent text-slate-200 hover:border-indigo-500/60 hover:bg-slate-900/60'
+								: 'border-slate-800/60 bg-transparent text-slate-400 opacity-60 cursor-not-allowed'
+						}`}
                       >
                         <Code className="h-4 w-4" />
                         <span>View Code</span>
@@ -211,12 +229,12 @@ export default function ProjectsSection() {
                           <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
                           <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
                         </div>
-                        <div className="h-5 flex-1 mx-4 rounded-full bg-slate-800/80" />
+                        <div className="h-5 flex-1 mx-2 sm:mx-4 rounded-full bg-slate-800/80" />
                         <div className="h-3 w-10 rounded-full bg-slate-800/80" />
                       </div>
 
                       {/* Screenshot area */}
-                      <div className="relative h-64 sm:h-72 lg:h-80 overflow-hidden">
+                      <div className="relative h-56 sm:h-72 lg:h-80 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-sky-500/30 via-indigo-700/40 to-slate-900/90" />
                         {p.image ? (
                           <img

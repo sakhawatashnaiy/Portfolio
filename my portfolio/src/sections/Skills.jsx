@@ -40,6 +40,7 @@ export default function SkillsSection() {
   const filtered = skills.filter((s) => filter === 'All' || s.cat === filter)
 
   const onCardMove = (e, id) => {
+    if (e.pointerType && e.pointerType !== 'mouse') return
     const el = cardRefs.current[id]
     if (!el) return
     const rect = el.getBoundingClientRect()
@@ -65,12 +66,12 @@ export default function SkillsSection() {
             <p className="text-sm text-white/70 mt-1">Technical skills showcased with proficiency and focused filters.</p>
           </div>
 
-          <div className="flex gap-2 items-center overflow-x-auto py-2">
+          <div className="-mx-6 px-6 md:mx-0 md:px-0 flex gap-2 items-center overflow-x-auto py-2 touch-pan-x snap-x snap-mandatory scroll-px-6">
             {filters.map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`whitespace-nowrap px-3 py-1 rounded-full text-sm font-medium transition ${filter === f ? 'bg-cyan-400/10 text-cyan-300 ring-1 ring-cyan-400/20' : 'text-white/70 hover:bg-white/5'}`}
+                className={`snap-start whitespace-nowrap px-3 py-1 rounded-full text-sm font-medium transition ${filter === f ? 'bg-cyan-400/10 text-cyan-300 ring-1 ring-cyan-400/20' : 'text-white/70 hover:bg-white/5'}`}
               >
                 {f}
               </button>
@@ -78,17 +79,17 @@ export default function SkillsSection() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
           {filtered.map((s, i) => {
             const Icon = s.icon
             return (
               <article
                 key={s.id}
                 ref={(el) => (cardRefs.current[s.id] = el)}
-                onMouseMove={(e) => onCardMove(e, s.id)}
-                onMouseLeave={() => onCardLeave(s.id)}
+                onPointerMove={(e) => onCardMove(e, s.id)}
+                onPointerLeave={() => onCardLeave(s.id)}
                 onClick={() => setExpanded(expanded === s.id ? null : s.id)}
-                className={`group cursor-pointer backdrop-blur-2xl bg-slate-950/60 border border-cyan-400/20 rounded-2xl p-4 transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl overflow-hidden`}
+                className={`group cursor-pointer select-none backdrop-blur-2xl bg-slate-950/60 border border-cyan-400/20 rounded-2xl p-4 transition-all duration-300 active:scale-[0.99] sm:hover:-translate-y-3 hover:shadow-2xl overflow-hidden will-change-transform`}
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
                 <div className="flex items-center gap-3">
@@ -117,7 +118,7 @@ export default function SkillsSection() {
                   ))}
                 </div>
 
-                <div className={`mt-4 overflow-hidden transition-all duration-300 ${expanded === s.id ? 'max-h-40' : 'max-h-0'}`}>
+                <div className={`mt-4 overflow-hidden transition-all duration-300 ${expanded === s.id ? 'max-h-48 sm:max-h-40' : 'max-h-0'}`}>
                   <p className="text-sm text-white/70">{s.desc}</p>
                 </div>
               </article>

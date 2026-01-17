@@ -12,11 +12,12 @@ export default function HeroSection() {
   const titleRef = useRef(null);
 
   useEffect(() => {
-    setMounted(true);
+    const t0 = setTimeout(() => setMounted(true), 0);
     const t1 = setTimeout(() => setShowTitle(true), 120);
     const t2 = setTimeout(() => setShowSub(true), 340);
     const t3 = setTimeout(() => setShowCtas(true), 640);
     return () => {
+      clearTimeout(t0);
       clearTimeout(t1);
       clearTimeout(t2);
       clearTimeout(t3);
@@ -149,7 +150,7 @@ export default function HeroSection() {
                   </h4>
 
                   <p
-                    className={`text-slate-600 text-base sm:text-lg max-w-4xl leading-relaxed ${showSub ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} transition-all duration-500 text-white/90`}
+                    className={`hidden sm:block text-base sm:text-lg max-w-4xl leading-relaxed ${showSub ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} transition-all duration-500 text-white/90`}
                   >
                     In 2026, users expect fast, accessible, and smooth experiences. I build modern MERN
                     applications with clean UI, responsive design, secure APIs, and performance-first
@@ -162,7 +163,7 @@ export default function HeroSection() {
                     <button
                       type="button"
                       onClick={handleCopyEmail}
-                      className="inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-medium text-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:bg-white/10"
+                      className="hidden sm:inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-medium text-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:bg-white/10"
                     >
                       {copied ? 'Email copied!' : 'Copy email'}
                     </button>

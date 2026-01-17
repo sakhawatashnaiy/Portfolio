@@ -1,4 +1,4 @@
-import React from 'react'
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
 
@@ -50,6 +50,33 @@ const skills = [
 ]
 
 export default function AboutSection() {
+	const MotionDiv = motion.div
+	const MotionArticle = motion.article
+
+	const [copied, setCopied] = useState(false)
+
+	const handleCopyPortfolioLink = async () => {
+		const url = window.location.href
+
+		try {
+			await navigator.clipboard.writeText(url)
+			setCopied(true)
+			window.setTimeout(() => setCopied(false), 1500)
+		} catch {
+			const textarea = document.createElement('textarea')
+			textarea.value = url
+			textarea.setAttribute('readonly', '')
+			textarea.style.position = 'absolute'
+			textarea.style.left = '-9999px'
+			document.body.appendChild(textarea)
+			textarea.select()
+			document.execCommand('copy')
+			document.body.removeChild(textarea)
+			setCopied(true)
+			window.setTimeout(() => setCopied(false), 1500)
+		}
+	}
+
 	return (
 		<section
 			id="about"
@@ -62,17 +89,17 @@ export default function AboutSection() {
 			<div className="max-w-7xl mx-auto px-6 lg:px-12 text-center">
 				{/* Intro */}
 				<div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center justify-items-center max-w-5xl mx-auto">
-					<div className="lg:col-span-4 flex justify-center">
+					<div className="lg:col-span-3 flex justify-center">
 						<p className="text-3xl font-black tracking-[0.3em] text-transparent [text-stroke:1px_rgba(120,120,120,0.45)]">
 							ABOUT
 						</p>
 					</div>
-					<div className="lg:col-span-9 space-y-6  justify-center lg:text-left">
-						<p className="text-3xl uppercase tracking-[0.4em] text-indigo-300">My Story</p>
+					<div className="lg:col-span-9 space-y-6 justify-center lg:text-left">
+						<p className="text-2xl sm:text-3xl uppercase tracking-[0.25em] sm:tracking-[0.4em] text-indigo-300">My Story</p>
 						<p className="text-3xl lg:text-4xl font-bold tracking-tight text-white text-balance">
 							Building confident interfaces and systems that feel inevitable.
 						</p>
-						<p className="text-2xl text-neutral-300 text-balance">
+						<p className="text-lg sm:text-2xl text-neutral-300 text-balance">
 							I design and engineer experiences for ambitious teams blending product strategy, interaction design, and systems
 							thinking to ship digital products that scale.
 						</p>
@@ -89,9 +116,10 @@ export default function AboutSection() {
 
 						<button
 							type="button"
-							className="group inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/60 px-5 py-2 text-sm font-semibold text-white transition-all duration-500 ease-[cubic-bezier(0.65,_0,_0.35,_1)] hover:border-indigo-400/60 hover:bg-neutral-900 mx-auto"
+							onClick={handleCopyPortfolioLink}
+							className="group inline-flex items-center gap-2 rounded-full border border-neutral-800 bg-neutral-900/60 px-5 py-2 text-sm font-semibold text-white transition-all duration-500 ease-[cubic-bezier(0.65,_0,_0.35,_1)] hover:border-indigo-400/60 hover:bg-neutral-900 mx-auto lg:mx-0"
 						>
-							Copy Portfolio Link
+							{copied ? 'Copied!' : 'Copy Portfolio Link'}
 							<span className="relative inline-flex overflow-hidden">
 								<ArrowUpRight className="h-4 w-4 transition-transform duration-500 group-hover:-translate-y-1" />
 							</span>
@@ -102,14 +130,19 @@ export default function AboutSection() {
 				{/* Timeline */}
 				<section className="mt-24 space-y-10 text-white italic">
 					<header className="text-center">
-						<p className="text-4xl uppercase tracking-[0.35em] text-white">Trajectory</p>
-						<h3 className="mt-3 text-4xl font-bold tracking-tight text-white text-balance">Where craft met impact</h3>
+						<p className="text-2xl sm:text-4xl uppercase tracking-[0.25em] sm:tracking-[0.35em] text-white">Trajectory</p>
+						<h3 className="mt-3 text-3xl sm:text-4xl font-bold tracking-tight text-white text-balance">
+							Where craft met impact
+						</h3>
 					</header>
 
 					<div className="relative max-w-3xl mx-auto">
-						<span className="absolute left-1/2 -translate-x-1/2 top-0 bottom-0 w-px bg-white" aria-hidden />
+						<span
+							className="absolute top-0 bottom-0 w-px bg-white left-4 sm:left-1/2 sm:-translate-x-1/2"
+							aria-hidden
+						/>
 
-						<motion.div
+						<MotionDiv
 							variants={containerVariants}
 							initial="hidden"
 							whileInView="visible"
@@ -117,22 +150,22 @@ export default function AboutSection() {
 							className="space-y-10"
 						>
 							{timeline.map((item) => (
-								<motion.article
+								<MotionArticle
 									key={item.year}
 									variants={cardVariants}
-									className="group relative max-w-xl mx-auto pt-4"
+									className="group relative w-full max-w-none sm:max-w-xl mx-0 sm:mx-auto pt-4 pl-10 sm:pl-0"
 								>
-									<span className="absolute left-1/2 -translate-x-1/2 top-0 h-4 w-4 rounded-full border border-white bg-white transition-all duration-500" />
-									<div className="border-l-2 border-white transition-all duration-500">
-										<div className="rounded-2xl border border-white/5 bg-neutral-900/30 backdrop-blur-md p-6 shadow-lg text-center">
-											<p className="text-sm uppercase tracking-[0.4em] text-white">{item.year}</p>
+									<span className="absolute left-4 top-0 h-4 w-4 rounded-full border border-white bg-white transition-all duration-500 sm:left-1/2 sm:-translate-x-1/2" />
+									<div className="transition-all duration-500 pl-6 pr-2 sm:pl-0 sm:pr-0">
+										<div className="rounded-2xl border border-white/5 bg-neutral-900/30 backdrop-blur-md p-5 sm:p-6 shadow-lg text-left sm:text-center">
+											<p className="text-sm uppercase tracking-[0.25em] sm:tracking-[0.4em] text-white">{item.year}</p>
 											<h4 className="mt-3 text-2xl sm:text-3xl font-semibold text-white">{item.title}</h4>
 											<p className="mt-2 text-lg leading-relaxed text-white">{item.desc}</p>
 										</div>
 									</div>
-								</motion.article>
+								</MotionArticle>
 							))}
-						</motion.div>
+						</MotionDiv>
 					</div>
 				</section>
 
