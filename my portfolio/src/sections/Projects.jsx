@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react'
-import { Code, ExternalLink, Tag, ArrowRight } from 'lucide-react'
+import { Code, ExternalLink, ArrowRight } from 'lucide-react'
 
  import ecommerceImg from '../assets/Eccomerce1.png'
 import clothingImg from '../assets/clothing world.jpg'
@@ -15,7 +15,6 @@ export default function ProjectsSection() {
         id: 'p-ecom',
         title: 'Custom Ecommerce Store',
         desc: 'A modern ecommerce storefront with product browsing, cart, checkout flow, and a fast, responsive UI.',
-        tech: ['React', 'Vite', 'Tailwind'],
         category: 'Ecommerce',
         image: ecommerceImg,
         code: 'https://github.com/sakhawatashnaiy/eccomerce-fullstack-design.git',
@@ -25,7 +24,6 @@ export default function ProjectsSection() {
         id: 'p-chat',
         title: 'Nexus Platform',
         desc: 'A scalable platform experience focused on performance, clean UX, and reliable integrations.',
-        tech: ['React', 'Node.js', 'Express', 'MongoDB'],
         category: 'Platform',
         image: null,
         code: '#',
@@ -35,7 +33,6 @@ export default function ProjectsSection() {
         id: 'p-clothing',
         title: 'Clothing Website',
         desc: 'A modern clothing brand website with a clean catalog, product pages, and a mobile-first shopping experience.',
-        tech: ['React', 'Vite', 'Tailwind'],
         category: 'Frontend',
         image: clothingImg,
         code: '#',
@@ -45,7 +42,6 @@ export default function ProjectsSection() {
         id: 'p-salon',
         title: 'Beauty Salon Website',
         desc: 'A premium salon landing page with services, pricing, gallery, testimonials, and an online appointment CTA.',
-        tech: ['React', 'Vite', 'Tailwind'],
         category: 'Business',
         image: salonImg,
         code: 'https://github.com/sakhawatashnaiy/myfronentendprojects.git',
@@ -55,7 +51,6 @@ export default function ProjectsSection() {
         id: 'p-realestate',
         title: 'Real Estate Website',
         desc: 'A real estate showcase site with property listings, filters, featured properties, and inquiry contact flow.',
-        tech: ['React', 'Vite', 'Tailwind'],
         category: 'Business',
         image: realEstateImg,
         code: 'https://github.com/sakhawatashnaiy/Realstaesite.git',
@@ -65,7 +60,6 @@ export default function ProjectsSection() {
         id: 'p-gym',
         title: 'Gym Website',
         desc: 'A high-energy fitness website with class schedules, trainer profiles, membership plans, and strong call-to-action sections.',
-        tech: ['React', 'Vite', 'Tailwind'],
         category: 'Business',
         image: gymImg,
         code: '#',
@@ -116,18 +110,6 @@ export default function ProjectsSection() {
                     <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{p.category}</p>
                     <h3 className="text-xl lg:text-2xl font-semibold text-white">{p.title}</h3>
                     <p className="text-sm text-slate-300 leading-relaxed">{p.desc}</p>
-
-                    <div className="mt-3 flex flex-wrap gap-2">
-                      {p.tech.map((t) => (
-                        <span
-                          key={t}
-                          className="inline-flex items-center gap-1 rounded-full border border-slate-800/80 bg-white/5 px-3 py-1 text-xs text-slate-200 backdrop-blur-sm transition-all duration-300 hover:bg-white/10 hover:-translate-y-0.5"
-                        >
-                          <Tag className="h-3 w-3 text-slate-400" />
-                          <span className="whitespace-nowrap">{t}</span>
-                        </span>
-                      ))}
-                    </div>
 
                     <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                       <a
