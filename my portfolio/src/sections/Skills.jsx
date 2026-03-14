@@ -15,13 +15,17 @@ const FILTERS = ['All', 'Frontend', 'Backend', 'DevOps', 'Tools']
 export default function SkillsSection() {
   const ref = useRef(null)
   const cardRefs = useRef({})
-  const [inView, setInView] = useState(false)
+  const [inView, setInView] = useState(true)
   const [filter, setFilter] = useState('All')
   const [expanded, setExpanded] = useState(null)
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

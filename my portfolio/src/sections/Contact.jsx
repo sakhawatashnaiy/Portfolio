@@ -4,7 +4,7 @@ import emailjs from '@emailjs/browser'
 
 export default function ContactSection() {
   const ref = useRef(null)
-  const [inView, setInView] = useState(false)
+  const [inView, setInView] = useState(true)
   const [sending, setSending] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -23,6 +23,10 @@ export default function ContactSection() {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    if (typeof IntersectionObserver === 'undefined') {
+      setInView(true)
+      return
+    }
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

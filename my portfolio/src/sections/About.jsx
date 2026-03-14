@@ -1,24 +1,5 @@
 import { useState } from 'react'
-import { motion } from 'framer-motion'
 import { ArrowUpRight } from 'lucide-react'
-
-const containerVariants = {
-	hidden: {},
-	visible: {
-		transition: {
-			staggerChildren: 0.12,
-		},
-	},
-}
-
-const cardVariants = {
-	hidden: { opacity: 0, x: -24 },
-	visible: {
-		opacity: 1,
-		x: 0,
-		transition: { duration: 0.6, ease: [0.83, 0, 0.17, 1] },
-	},
-}
 
 const timeline = [
 	{
@@ -50,9 +31,6 @@ const skills = [
 ]
 
 export default function AboutSection() {
-	const MotionDiv = motion.div
-	const MotionArticle = motion.article
-
 	const [copied, setCopied] = useState(false)
 
 	const handleCopyPortfolioLink = async () => {
@@ -142,17 +120,10 @@ export default function AboutSection() {
 							aria-hidden
 						/>
 
-						<MotionDiv
-							variants={containerVariants}
-							initial="hidden"
-							whileInView="visible"
-							viewport={{ once: true, margin: '0px 0px -40px 0px' }}
-							className="space-y-10"
-						>
+						<div className="space-y-10">
 							{timeline.map((item) => (
-								<MotionArticle
+								<article
 									key={item.year}
-									variants={cardVariants}
 									className="group relative w-full max-w-none sm:max-w-xl mx-0 sm:mx-auto pt-4 pl-10 sm:pl-0"
 								>
 									<span className="absolute left-4 top-0 h-4 w-4 rounded-full border border-white bg-white transition-all duration-500 sm:left-1/2 sm:-translate-x-1/2" />
@@ -163,9 +134,9 @@ export default function AboutSection() {
 											<p className="mt-2 text-lg leading-relaxed text-white">{item.desc}</p>
 										</div>
 									</div>
-								</MotionArticle>
+								</article>
 							))}
-						</MotionDiv>
+						</div>
 					</div>
 				</section>
 

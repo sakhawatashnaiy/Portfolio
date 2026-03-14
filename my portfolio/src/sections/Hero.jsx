@@ -1,69 +1,8 @@
-import React, { useEffect, useState, useRef } from 'react';
-import { ArrowRight, Download } from 'lucide-react';
+import React from 'react';
+import { ArrowRight } from 'lucide-react';
 import img1 from '../assets/professional.jpeg.jpg';
 
 export default function HeroSection() {
-  const [copied, setCopied] = useState(false);
-  const assetRef = useRef(null);
-  const titleRef = useRef(null);
-
-  // Advanced animations: bobbing asset + title shimmer + interactive tilt
-  useEffect(() => {
-    let raf = null;
-    let start = performance.now();
-    const amp = 8; // bob amplitude
-    const speed = 0.0022; // bob speed
-
-    function loop(now) {
-      const t = now - start;
-      const y = Math.sin(t * speed) * amp;
-      if (assetRef.current) {
-        // apply bobbing; preserve any inline rotation applied by mouse
-        const base = assetRef.current.dataset.baseRotate || 0;
-        assetRef.current.style.transform = `translateY(${y}px) rotate(${base}deg)`;
-      }
-      if (titleRef.current) {
-        // shimmer effect by adjusting background position
-        const pos = (t * 0.02) % 200;
-        titleRef.current.style.backgroundPosition = `${pos}% 50%`;
-      }
-      raf = requestAnimationFrame(loop);
-    }
-    raf = requestAnimationFrame(loop);
-    return () => cancelAnimationFrame(raf);
-  }, []);
-
-  // Pointer tilt on asset
-  const handleAssetMove = (e) => {
-    const el = assetRef.current;
-    if (!el) return;
-    const rect = el.getBoundingClientRect();
-    const x = (e.clientX - rect.left) / rect.width - 0.5;
-    const y = (e.clientY - rect.top) / rect.height - 0.5;
-    const rotX = -y * 8; // tilt amount
-    const rotY = x * 10;
-    el.style.transform = `translateY(${Math.sin(performance.now() * 0.0022) * 8}px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-    el.dataset.baseRotate = 0; // keep dataset for RAF
-  };
-
-  const handleAssetLeave = () => {
-    const el = assetRef.current;
-    if (!el) return;
-    el.style.transform = `translateY(${Math.sin(performance.now() * 0.0022) * 8}px) rotateX(0deg) rotateY(0deg)`;
-  };
-
-  const emailToCopy = 'hello@portfolio.dev';
-
-  const handleCopyEmail = async () => {
-    try {
-      await navigator.clipboard.writeText(emailToCopy);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1600);
-    } catch {
-      // ignore clipboard errors (unsupported browser)
-    }
-  };
-
   const primaryBtn = (
     <a
       href="#projects"
@@ -74,18 +13,6 @@ export default function HeroSection() {
       <span className="transform transition-transform duration-200 group-hover:translate-x-2">
         <ArrowRight className="w-4 h-4 text-slate-900" />
       </span>
-    </a>
-  );
-
-  const secondaryBtn = (
-    <a
-      href=""
-      download
-      className="inline-flex items-center gap-2 border border-white/20 text-white/90 px-4 py-1.5 rounded-2xl font-medium hover:bg-white/5 transition-colors duration-200"
-      aria-label="Download CV"
-    >
-      <Download className="w-3 h-3 text-cyan-300" />
-      Download CV
     </a>
   );
 
@@ -126,7 +53,6 @@ export default function HeroSection() {
                   </div>
 
                   <h4
-                    ref={titleRef}
                     className="hero-title-glow italic font-extrabold leading-tight tracking-tight text-3xl sm:text-4xl lg:text-4xl text-white anim-fade-up anim-delay-120"
                   >
                     Hi I am Sakhawat Ashnaiy,A  Mern Stack Developer
@@ -142,14 +68,6 @@ export default function HeroSection() {
 
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-3 anim-fade-up anim-delay-640">
                     {primaryBtn}
-                    {secondaryBtn}
-                    <button
-                      type="button"
-                      onClick={handleCopyEmail}
-                      className="hidden sm:inline-flex items-center gap-2 rounded-2xl border border-white/20 bg-white/5 px-4 py-1.5 text-xs sm:text-sm font-medium text-slate-100 transition-all duration-500 ease-in-out hover:-translate-y-2 hover:bg-white/10"
-                    >
-                      {copied ? 'Email copied!' : 'Copy email'}
-                    </button>
                   </div>
                 </div>
               </div>
@@ -161,15 +79,13 @@ export default function HeroSection() {
                 <div className="relative flex justify-center lg:justify-end">
                   <div className="absolute -right-6 lg:-right-12 top-0 rounded-2xl w-64 h-80 lg:w-96 lg:h-[28rem] bg-gradient-to-br from-blue-500/20 via-indigo-700/10 to-black/20 blur-3xl -z-10" />
                   <div
-                    ref={assetRef}
-                    onMouseMove={handleAssetMove}
-                    onMouseLeave={handleAssetLeave}
-                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-blue-400/20 via-blue-500/12 to-transparent border border-cyan-400/30 flex items-center justify-center transition-transform duration-200 will-change-transform overflow-hidden backdrop-blur-md"
+                    className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-blue-400/20 via-blue-500/12 to-transparent border border-cyan-400/30 flex items-center justify-center overflow-hidden backdrop-blur-md anim-hero-asset-float"
                   >
                     <img
                       src={img1}
                       alt="profile picture"
-                      loading="lazy"
+                      loading="eager"
+                      fetchPriority="high"
                       className="w-full h-full object-cover object-top"
                     />
                   </div>

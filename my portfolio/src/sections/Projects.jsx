@@ -1,19 +1,13 @@
-import React, { useMemo, useRef, useState, useEffect } from 'react'
+import React, { useMemo } from 'react'
 import { Code, ExternalLink, Tag, ArrowRight } from 'lucide-react'
 
-import ecommerceImg from '../assets/Eccomerce1.jpg'
-import chatImg from '../assets/Realtimechate.jpg'
+ import ecommerceImg from '../assets/Eccomerce1.png'
 import clothingImg from '../assets/clothing world.jpg'
 import salonImg from '../assets/beautysaloon.jpeg'
 import realEstateImg from '../assets/Real state.jpg'
 import gymImg from '../assets/Gym website.png'
 
 export default function ProjectsSection() {
-  const ref = useRef(null)
-  const [inView, setInView] = useState(false)
-  const itemRefs = useRef({})
-  const [seen, setSeen] = useState({})
-
   // Project data
   const projects = useMemo(
     () => [
@@ -24,16 +18,16 @@ export default function ProjectsSection() {
         tech: ['React', 'Vite', 'Tailwind'],
         category: 'Ecommerce',
         image: ecommerceImg,
-        code: '#',
-        demo: '#',
+        code: 'https://github.com/sakhawatashnaiy/eccomerce-fullstack-design.git',
+        demo: 'https://eccomerce-fullstack-design.vercel.app/',
       },
       {
         id: 'p-chat',
-        title: 'Realtime Chat',
-        desc: 'Fast, resilient WebSocket chat with presence and media handling.',
-        tech: ['Node.js', 'Socket.io', 'React'],
-        category: 'Full Stack',
-        image: chatImg,
+        title: 'Nexus Platform',
+        desc: 'A scalable platform experience focused on performance, clean UX, and reliable integrations.',
+        tech: ['React', 'Node.js', 'Express', 'MongoDB'],
+        category: 'Platform',
+        image: null,
         code: '#',
         demo: '#',
       },
@@ -81,50 +75,10 @@ export default function ProjectsSection() {
     []
   )
 
-  useEffect(() => {
-    const el = ref.current
-    if (!el) return
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((en) => {
-          if (en.isIntersecting) {
-            setInView(true)
-            obs.unobserve(el)
-          }
-        })
-      },
-      { threshold: 0.08 }
-    )
-    obs.observe(el)
-    return () => obs.disconnect()
-  }, [])
-
-  useEffect(() => {
-    const elements = Object.values(itemRefs.current).filter(Boolean)
-    if (elements.length === 0) return
-
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((en) => {
-          if (!en.isIntersecting) return
-          const id = en.target?.dataset?.pid
-          if (!id) return
-          setSeen((prev) => (prev[id] ? prev : { ...prev, [id]: true }))
-          obs.unobserve(en.target)
-        })
-      },
-      { threshold: 0.18, rootMargin: '0px 0px -8% 0px' }
-    )
-
-    elements.forEach((node) => obs.observe(node))
-    return () => obs.disconnect()
-  }, [projects])
-
   return (
     <section
       id="projects"
-      ref={ref}
-      className={`py-16 lg:py-24 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}
+      className="py-16 lg:py-24"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="rounded-3xl bg-[#050505]/95 border border-slate-900/80 shadow-xl p-5 sm:p-6 lg:p-10">
@@ -140,16 +94,12 @@ export default function ProjectsSection() {
           <div className="space-y-12 lg:space-y-16">
             {projects.map((p, i) => {
               const reversed = i % 2 === 1
-              const show = !!seen[p.id]
+			  const show = true
 				const hasDemo = !!p.demo && p.demo !== '#'
 				const hasCode = !!p.code && p.code !== '#'
               return (
                 <article
                   key={p.id}
-                  ref={(node) => {
-                    if (node) itemRefs.current[p.id] = node
-                  }}
-                  data-pid={p.id}
                   className={`group relative flex flex-col gap-8 lg:gap-12 ${
                     reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
                   } transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:transform-none ${
@@ -241,6 +191,7 @@ export default function ProjectsSection() {
                             src={p.image}
                             alt={`${p.title} preview`}
                             loading="lazy"
+                            fetchPriority="low"
                             decoding="async"
                             className="absolute inset-0 h-full w-full object-cover opacity-95 transition-transform duration-700 ease-out group-hover:scale-[1.05]"
                           />
