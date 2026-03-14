@@ -48,8 +48,54 @@ body {
 	animation: heroTitleGlow 3.2s ease-in-out infinite;
 }
 
+@keyframes fadeUpIn {
+	from {
+		opacity: 0;
+		transform: translate3d(0, 16px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+@keyframes fadeDownIn {
+	from {
+		opacity: 0;
+		transform: translate3d(0, -16px, 0);
+	}
+	to {
+		opacity: 1;
+		transform: translate3d(0, 0, 0);
+	}
+}
+
+.anim-fade-up {
+	animation: fadeUpIn 700ms cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+.anim-fade-down {
+	animation: fadeDownIn 700ms cubic-bezier(0.2, 0.9, 0.25, 1) both;
+}
+
+.anim-delay-120 {
+	animation-delay: 120ms;
+}
+
+.anim-delay-340 {
+	animation-delay: 340ms;
+}
+
+.anim-delay-640 {
+	animation-delay: 640ms;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	.hero-title-glow {
+		animation: none;
+	}
+	.anim-fade-up,
+	.anim-fade-down {
 		animation: none;
 	}
 }

@@ -1,23 +1,23 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Code, Layers, Cloud, Database, Zap, Terminal } from 'lucide-react'
 
+const SKILLS = [
+  { id: 's1', name: 'React', cat: 'Frontend', icon: Code, level: 92, tags: ['TypeScript', 'Tailwind'] , desc: 'Component-driven UI, hooks, state management and performance tuning.'},
+  { id: 's2', name: 'TypeScript', cat: 'Frontend', icon: Layers, level: 90, tags: ['Types', 'Generics'] , desc: 'Strongly-typed code, safer APIs, and better DX.'},
+  { id: 's3', name: 'Node.js', cat: 'Backend', icon: Terminal, level: 88, tags: ['Express', 'APIs'] , desc: 'Event-driven servers, efficient APIs, and service wiring.'},
+  { id: 's4', name: 'Databases', cat: 'Backend', icon: Database, level: 82, tags: ['Postgres', 'Prisma'] , desc: 'Relational data modeling, queries, and migrations.'},
+  { id: 's5', name: 'Cloud', cat: 'DevOps', icon: Cloud, level: 76, tags: ['AWS', 'Deploy'] , desc: 'Deployments, serverless patterns, and infra as code.'},
+  { id: 's6', name: 'Performance', cat: 'Tools', icon: Zap, level: 78, tags: ['Profiling', 'Lighthouse'] , desc: 'Optimizing rendering, bundles, and runtime performance.'},
+]
+
+const FILTERS = ['All', 'Frontend', 'Backend', 'DevOps', 'Tools']
+
 export default function SkillsSection() {
   const ref = useRef(null)
   const cardRefs = useRef({})
   const [inView, setInView] = useState(false)
   const [filter, setFilter] = useState('All')
   const [expanded, setExpanded] = useState(null)
-
-  const skills = [
-    { id: 's1', name: 'React', cat: 'Frontend', icon: Code, level: 92, tags: ['TypeScript', 'Tailwind'] , desc: 'Component-driven UI, hooks, state management and performance tuning.'},
-    { id: 's2', name: 'TypeScript', cat: 'Frontend', icon: Layers, level: 90, tags: ['Types', 'Generics'] , desc: 'Strongly-typed code, safer APIs, and better DX.'},
-    { id: 's3', name: 'Node.js', cat: 'Backend', icon: Terminal, level: 88, tags: ['Express', 'APIs'] , desc: 'Event-driven servers, efficient APIs, and service wiring.'},
-    { id: 's4', name: 'Databases', cat: 'Backend', icon: Database, level: 82, tags: ['Postgres', 'Prisma'] , desc: 'Relational data modeling, queries, and migrations.'},
-    { id: 's5', name: 'Cloud', cat: 'DevOps', icon: Cloud, level: 76, tags: ['AWS', 'Deploy'] , desc: 'Deployments, serverless patterns, and infra as code.'},
-    { id: 's6', name: 'Performance', cat: 'Tools', icon: Zap, level: 78, tags: ['Profiling', 'Lighthouse'] , desc: 'Optimizing rendering, bundles, and runtime performance.'},
-  ]
-
-  const filters = ['All', 'Frontend', 'Backend', 'DevOps', 'Tools']
 
   useEffect(() => {
     const el = ref.current
@@ -37,7 +37,7 @@ export default function SkillsSection() {
     return () => obs.disconnect()
   }, [])
 
-  const filtered = skills.filter((s) => filter === 'All' || s.cat === filter)
+  const filtered = SKILLS.filter((s) => filter === 'All' || s.cat === filter)
 
   const onCardMove = (e, id) => {
     if (e.pointerType && e.pointerType !== 'mouse') return
@@ -67,7 +67,7 @@ export default function SkillsSection() {
           </div>
 
           <div className="-mx-6 px-6 md:mx-0 md:px-0 flex gap-2 items-center overflow-x-auto py-2 touch-pan-x snap-x snap-mandatory scroll-px-6">
-            {filters.map((f) => (
+            {FILTERS.map((f) => (
               <button
                 key={f}
                 onClick={() => setFilter(f)}

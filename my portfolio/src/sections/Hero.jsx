@@ -3,26 +3,9 @@ import { ArrowRight, Download } from 'lucide-react';
 import img1 from '../assets/professional.jpeg.jpg';
 
 export default function HeroSection() {
-  const [mounted, setMounted] = useState(false);
-  const [showTitle, setShowTitle] = useState(false);
-  const [showSub, setShowSub] = useState(false);
-  const [showCtas, setShowCtas] = useState(false);
   const [copied, setCopied] = useState(false);
   const assetRef = useRef(null);
   const titleRef = useRef(null);
-
-  useEffect(() => {
-    const t0 = setTimeout(() => setMounted(true), 0);
-    const t1 = setTimeout(() => setShowTitle(true), 120);
-    const t2 = setTimeout(() => setShowSub(true), 340);
-    const t3 = setTimeout(() => setShowCtas(true), 640);
-    return () => {
-      clearTimeout(t0);
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
-    };
-  }, []);
 
   // Advanced animations: bobbing asset + title shimmer + interactive tilt
   useEffect(() => {
@@ -134,7 +117,7 @@ export default function HeroSection() {
             {/* Left column: content */}
             <div className="col-span-2 lg:col-span-6 pt-4">
               <div
-                className={`backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 sm:p-12 max-w-6xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] ${mounted ? 'translate-y-0 opacity-100' : 'translate-y-3 opacity-0'} transition-all duration-700`}
+                className="backdrop-blur-md bg-white/10 border border-white/20 rounded-3xl p-8 sm:p-12 max-w-6xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] anim-fade-up"
               >
                 <div className="space-y-5">
                   <div className="inline-flex items-center gap-2 rounded-full bg-white/10 backdrop-blur-md border border-white/20 px-3 py-1 text-[11px] sm:text-xs font-medium text-sky-100">
@@ -144,20 +127,20 @@ export default function HeroSection() {
 
                   <h4
                     ref={titleRef}
-                    className={`hero-title-glow italic font-extrabold leading-tight tracking-tight text-3xl sm:text-4xl lg:text-4xl text-white ${showTitle ? 'opacity-100 translate-y-0' : 'opacity-10 -translate-y-6'} transition-all duration-500`}
+                    className="hero-title-glow italic font-extrabold leading-tight tracking-tight text-3xl sm:text-4xl lg:text-4xl text-white anim-fade-up anim-delay-120"
                   >
                     Hi I am Sakhawat Ashnaiy,A  Mern Stack Developer
                   </h4>
 
                   <p
-                    className={`hidden sm:block text-base sm:text-lg max-w-4xl leading-relaxed ${showSub ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'} transition-all duration-500 text-white/90`}
+                    className="hidden sm:block text-base sm:text-lg max-w-4xl leading-relaxed text-white/90 anim-fade-up anim-delay-340"
                   >
                     In 2026, users expect fast, accessible, and smooth experiences. I build modern MERN
                     applications with clean UI, responsive design, secure APIs, and performance-first
                     engineering  ready for production.
                   </p>
 
-                  <div className={`flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-3 ${showCtas ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-3'} transition-all duration-500`}>
+                  <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-3 anim-fade-up anim-delay-640">
                     {primaryBtn}
                     {secondaryBtn}
                     <button
@@ -174,7 +157,7 @@ export default function HeroSection() {
 
             {/* Right column: visual asset (responsive + centered on small screens) */}
             <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end">
-              <div className={`w-full max-w-md lg:max-w-lg transform ${mounted ? 'opacity-100 translate-x-0' : 'opacity-0 translate-y-6'} transition-all duration-400`}>
+              <div className="w-full max-w-md lg:max-w-lg transform anim-fade-up anim-delay-120">
                 <div className="relative flex justify-center lg:justify-end">
                   <div className="absolute -right-6 lg:-right-12 top-0 rounded-2xl w-64 h-80 lg:w-96 lg:h-[28rem] bg-gradient-to-br from-blue-500/20 via-indigo-700/10 to-black/20 blur-3xl -z-10" />
                   <div

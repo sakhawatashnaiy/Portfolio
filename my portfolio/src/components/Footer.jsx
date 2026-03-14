@@ -1,15 +1,9 @@
-import React, { useState, useEffect } from 'react'
+import React, { memo, useState } from 'react'
  import {Instagram,Linkedin, Twitter, Mail, ArrowRight } from 'lucide-react'
 
-export default function Footer() {
+function Footer() {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle') // idle | sending | success | error
-  const [mounted, setMounted] = useState(false)
-
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 80)
-    return () => clearTimeout(t)
-  }, [])
 
   function validateEmail(v) {
     return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(v)
@@ -30,7 +24,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className={`w-full mt-16 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`} aria-labelledby="footer-heading">
+    <footer className="w-full mt-16 anim-fade-up" aria-labelledby="footer-heading">
       <div className="relative overflow-hidden">
         {/* decorative soft blobs */}
         <div aria-hidden className="pointer-events-none absolute -top-24 -left-16 w-64 h-64 bg-cyan-500/10 rounded-full blur-3xl animate-pulse" />
@@ -126,3 +120,5 @@ export default function Footer() {
     </footer>
   )
 }
+
+export default memo(Footer)

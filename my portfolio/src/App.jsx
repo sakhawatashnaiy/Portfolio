@@ -7,13 +7,7 @@ import SkillsSection from './sections/Skills.jsx'
 import ContactSection from './sections/Contact.jsx'
 import Footer from './components/Footer.jsx'
 const App = () => {
-  const [mounted, setMounted] = useState(false)
   const orbRef = useRef(null)
-
-  useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 60)
-    return () => clearTimeout(t)
-  }, [])
 
   // enable smooth scrolling for anchor links
   useEffect(() => {
@@ -66,7 +60,7 @@ const App = () => {
 
       <Navbar />
 
-      <main className={`relative z-10 transition-all duration-700 ${mounted ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+      <main className="relative z-10 anim-fade-up">
         <div className="max-w-[1200px] mx-auto px-4 lg:px-6 pt-20">
           {/* Main glassy wrapper */}
           <div className="backdrop-blur-2xl bg-slate-950/60 border border-cyan-400/20 rounded-3xl shadow-2xl shadow-black/40 p-6 lg:p-8">
@@ -107,10 +101,11 @@ function BackToTop() {
 
   useEffect(() => {
     function onScroll() {
-      setVisible(window.scrollY > 400)
+      const next = window.scrollY > 400
+      setVisible((prev) => (prev === next ? prev : next))
     }
     onScroll()
-    window.addEventListener('scroll', onScroll)
+    window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 

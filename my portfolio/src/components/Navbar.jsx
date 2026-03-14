@@ -1,15 +1,16 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import { Menu, X } from "lucide-react";
 
-export default function Navbar() {
-	const [open, setOpen] = useState(false);
-	const [mounted, setMounted] = useState(false);
-	const navRef = useRef(null);
+const LINKS = [
+	{ name: "Home", href: "#home" },
+	{ name: "About", href: "#about" },
+	{ name: "Projects", href: "#projects" },
+	{ name: "Skills", href: "#skills" },
+	{ name: "Contact", href: "#contact" },
+];
 
-	useEffect(() => {
-		const t = setTimeout(() => setMounted(true), 60);
-		return () => clearTimeout(t);
-	}, []);
+function Navbar() {
+	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
 		const onKey = (e) => {
@@ -18,14 +19,6 @@ export default function Navbar() {
 		window.addEventListener("keydown", onKey);
 		return () => window.removeEventListener("keydown", onKey);
 	}, []);
-
-	const links = [
-		{ name: "Home", href: "#home" },
-		{ name: "About", href: "#about" },
-		{ name: "Projects", href: "#projects" },
-		{ name: "Skills", href: "#skills" },
-		{ name: "Contact", href: "#contact" },
-	];
 
 	return (
 		<>
@@ -42,13 +35,7 @@ export default function Navbar() {
 				.link-underline:hover::after, .link-underline.active::after { width: 72%; }
 			`}</style>
 
-			<nav
-				ref={navRef}
-				aria-label="Main Navigation"
-				className={`fixed left-4 right-4 top-4 z-50 transform transition-all duration-700 ease-out ${
-					mounted ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-4"
-				}`}
-			>
+			<nav aria-label="Main Navigation" className="fixed left-4 right-4 top-4 z-50 anim-fade-down">
 				<div className="max-w-6xl mx-auto px-4">
 					<div className="flex items-center justify-between gap-4 px-3 py-3 nav-float backdrop-blur-2xl bg-gradient-to-r from-white/5 via-white/3 to-white/5 dark:from-black/50 dark:via-black/40 dark:to-black/50 border border-white/8 dark:border-white/6 rounded-2xl shadow-2xl">
 						<a href="#home" className="flex items-center gap-3 select-none" aria-label="SKA Home">
@@ -59,7 +46,7 @@ export default function Navbar() {
 						</a>
 
 						<ul className="hidden lg:flex items-center gap-6">
-							{links.map((l) => (
+							{LINKS.map((l) => (
 								<li key={l.name}>
 									<a
 										href={l.href}
@@ -111,7 +98,7 @@ export default function Navbar() {
 						</div>
 
 						<ul className="flex flex-col gap-4">
-							{links.map((l) => (
+							{LINKS.map((l) => (
 								<li key={l.name}>
 									<a
 										href={l.href}
@@ -135,4 +122,6 @@ export default function Navbar() {
 		</>
 	);
 }
+
+export default memo(Navbar);
 
