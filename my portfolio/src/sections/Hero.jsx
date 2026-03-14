@@ -74,10 +74,10 @@ export default function HeroSection() {
             </div>
 
             {/* Right column: visual asset (responsive + centered on small screens) */}
-            <div className="col-span-1 lg:col-span-5 flex justify-center lg:justify-end">
+            <div className="col-span-1 lg:col-span-5 flex justify-center">
               <div className="w-full max-w-md lg:max-w-lg transform anim-fade-up anim-delay-120">
-                <div className="relative flex justify-center lg:justify-end">
-                  <div className="absolute -right-6 lg:-right-12 top-0 rounded-2xl w-64 h-80 lg:w-96 lg:h-[28rem] bg-gradient-to-br from-blue-500/20 via-indigo-700/10 to-black/20 blur-3xl -z-10" />
+                <div className="relative flex justify-center">
+                  <div className="absolute left-1/2 -translate-x-1/2 top-0 rounded-2xl w-64 h-80 lg:w-96 lg:h-[28rem] bg-gradient-to-br from-blue-500/20 via-indigo-700/10 to-black/20 blur-3xl -z-10 lg:left-auto lg:translate-x-0 lg:-right-12" />
                   <div
                     className="w-64 h-64 sm:w-72 sm:h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 rounded-3xl bg-gradient-to-br from-blue-400/20 via-blue-500/12 to-transparent border border-cyan-400/30 flex items-center justify-center overflow-hidden backdrop-blur-md anim-hero-asset-float"
                   >
