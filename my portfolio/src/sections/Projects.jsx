@@ -78,11 +78,11 @@ export default function ProjectsSection() {
   return (
     <section
       id="projects"
-      className="py-16 lg:py-24"
+      className="py-12 sm:py-16 lg:py-24"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="rounded-3xl bg-[#050505]/95 border border-slate-900/80 shadow-xl p-5 sm:p-6 lg:p-10">
-          <div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+        <div className="rounded-3xl bg-[#050505]/95 border border-slate-900/80 shadow-xl p-4 sm:p-6 lg:p-10">
+          <div className="mb-8 sm:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
               <h2 className="text-2xl lg:text-3xl font-semibold text-white">Project Gallery</h2>
               <p className="mt-2 text-sm text-slate-300">
@@ -91,7 +91,7 @@ export default function ProjectsSection() {
             </div>
           </div>
 
-          <div className="space-y-12 lg:space-y-16">
+          <div className="space-y-8 sm:space-y-12 lg:space-y-16">
             {projects.map((p, i) => {
               const reversed = i % 2 === 1
 			  const show = true
@@ -100,7 +100,7 @@ export default function ProjectsSection() {
               return (
                 <article
                   key={p.id}
-                  className={`group relative flex flex-col gap-8 lg:gap-12 ${
+                  className={`group relative flex flex-col gap-6 sm:gap-8 lg:gap-12 ${
                     reversed ? 'lg:flex-row-reverse' : 'lg:flex-row'
                   } transition-all duration-700 ease-out motion-reduce:transition-none motion-reduce:transform-none ${
                     show
@@ -112,7 +112,7 @@ export default function ProjectsSection() {
                   style={{ transitionDelay: show ? `${i * 90}ms` : '0ms' }}
                 >
                   {/* Text side (sticky on lg) */}
-                  <div className="lg:w-2/5 lg:sticky lg:top-24 self-start space-y-4">
+                  <div className="lg:w-2/5 lg:sticky lg:top-24 self-start space-y-3 sm:space-y-4">
                     <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{p.category}</p>
                     <h3 className="text-xl lg:text-2xl font-semibold text-white">{p.title}</h3>
                     <p className="text-sm text-slate-300 leading-relaxed">{p.desc}</p>
@@ -129,7 +129,7 @@ export default function ProjectsSection() {
                       ))}
                     </div>
 
-                    <div className="mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
+                    <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                       <a
                         href={p.demo}
                         target="_blank"
@@ -184,7 +184,7 @@ export default function ProjectsSection() {
                       </div>
 
                       {/* Screenshot area */}
-                      <div className="relative h-56 sm:h-72 lg:h-80 overflow-hidden">
+                      <div className="relative h-44 sm:h-56 md:h-72 lg:h-80 overflow-hidden">
                         <div className="absolute inset-0 bg-gradient-to-br from-sky-500/30 via-indigo-700/40 to-slate-900/90" />
                         {p.image ? (
                           <img
