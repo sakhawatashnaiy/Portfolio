@@ -23,7 +23,7 @@ export default function HeroSection() {
     >
       {/* Subtle abstract background svg/pattern */}
       <svg
-        className="pointer-events-none absolute inset-0 w-full h-[600px] mix-blend-overlay opacity-10 dark:opacity-10 opacity-0 transition-opacity"
+        className="pointer-events-none absolute inset-0 w-full h-[600px] mix-blend-overlay opacity-0 dark:opacity-10 transition-opacity"
         preserveAspectRatio="none"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 800 600"
