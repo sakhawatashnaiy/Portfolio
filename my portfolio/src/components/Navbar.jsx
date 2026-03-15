@@ -1,5 +1,5 @@
 import React, { memo, useEffect, useState } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, Sun, Moon } from "lucide-react";
 
 const LINKS = [
 	{ name: "Home", href: "#home" },
@@ -9,7 +9,7 @@ const LINKS = [
 	{ name: "Contact", href: "#contact" },
 ];
 
-function Navbar() {
+function Navbar({ theme = "dark", onToggleTheme }) {
 	const [open, setOpen] = useState(false);
 
 	useEffect(() => {
@@ -35,12 +35,12 @@ function Navbar() {
 				.link-underline:hover::after, .link-underline.active::after { width: 72%; }
 			`}</style>
 
-			<nav aria-label="Main Navigation" className="fixed left-4 right-4 top-4 z-50 anim-fade-down">
-				<div className="max-w-6xl mx-auto px-4">
-					<div className="flex items-center justify-between gap-4 px-3 py-3 nav-float backdrop-blur-2xl bg-gradient-to-r from-white/5 via-white/3 to-white/5 dark:from-black/50 dark:via-black/40 dark:to-black/50 border border-white/8 dark:border-white/6 rounded-2xl shadow-2xl">
+			<nav aria-label="Main Navigation" className="fixed left-2 right-2 sm:left-4 sm:right-4 top-4 z-50 anim-fade-down">
+				<div className="max-w-7xl mx-auto px-3 sm:px-4">
+					<div className="flex items-center justify-between gap-4 px-3 py-3 nav-float backdrop-blur-2xl bg-white/70 dark:bg-gradient-to-r dark:from-black/50 dark:via-black/40 dark:to-black/50 border border-slate-200/70 dark:border-white/6 rounded-2xl shadow-2xl transition-colors">
 						<a href="#home" className="flex items-center gap-3 select-none" aria-label="SKA Home">
 								<div className="flex items-center gap-3">
-								<span className="ska-brand text-white text-xl sm:text-2xl tracking-tight">SKA</span>
+								<span className="ska-brand text-slate-900 dark:text-white text-xl sm:text-2xl tracking-tight">SKA</span>
 								<span className="w-3 h-3 bg-blue-400 rounded-full shadow-[0_0_16px_rgba(59,130,246,0.35)] block" />
 							</div>
 						</a>
@@ -50,7 +50,7 @@ function Navbar() {
 								<li key={l.name}>
 									<a
 										href={l.href}
-										className={`italic text-base lg:text-lg text-white px-3 py-2 rounded-full transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400/25 link-underline`}
+										className={`italic text-base lg:text-lg text-slate-800 dark:text-white px-3 py-2 rounded-full transition-transform transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400/25 link-underline`}
 									>
 										{l.name}
 									</a>
@@ -59,9 +59,22 @@ function Navbar() {
 						</ul>
 
 						<div className="flex items-center gap-3">
+							<button
+								type="button"
+								onClick={() => onToggleTheme?.()}
+								aria-label={theme === "dark" ? "Switch to light theme" : "Switch to dark theme"}
+								className="inline-flex items-center justify-center p-2.5 rounded-full bg-white/60 dark:bg-white/6 border border-slate-200/70 dark:border-white/10 text-slate-900 dark:text-slate-100 hover:bg-white/80 dark:hover:bg-white/10 transition"
+							>
+								{theme === "dark" ? (
+									<Sun className="w-5 h-5" />
+								) : (
+									<Moon className="w-5 h-5" />
+								)}
+							</button>
+
 							<a
 								href="#contact"
-								className="lets-talk hidden md:inline-flex items-center gap-2 bg-blue-400/10 text-blue-300 px-4 py-2 rounded-full text-sm font-bold italic hover:scale-105 transition"
+								className="lets-talk hidden md:inline-flex items-center gap-2 bg-blue-400/10 text-blue-600 dark:text-blue-300 px-4 py-2 rounded-full text-sm font-bold italic hover:scale-105 transition"
 							>
 								Let's talk
 							</a>
@@ -70,9 +83,9 @@ function Navbar() {
 								aria-label={open ? "Close menu" : "Open menu"}
 								aria-expanded={open}
 								onClick={() => setOpen((s) => !s)}
-								className="inline-flex lg:hidden items-center justify-center p-2 rounded-md text-slate-100 hover:bg-white/6 transition"
+								className="inline-flex lg:hidden items-center justify-center p-2 rounded-md text-slate-900 dark:text-slate-100 hover:bg-white/60 dark:hover:bg-white/6 transition"
 							>
-								{open ? <X className="w-6 h-6 text-blue-300" /> : <Menu className="w-6 h-6 text-slate-100" />}
+								{open ? <X className="w-6 h-6 text-blue-500 dark:text-blue-300" /> : <Menu className="w-6 h-6 text-slate-900 dark:text-slate-100" />}
 							</button>
 						</div>
 					</div>
@@ -89,11 +102,11 @@ function Navbar() {
 				<div className={`absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity ${open ? 'opacity-100' : 'opacity-0'}`} onClick={() => setOpen(false)} />
 
 				<div className={`relative w-full max-w-md mx-auto transform transition-transform ${open ? 'translate-y-0' : '-translate-y-6'}`}>
-					<div className="mx-4 backdrop-blur-2xl bg-white/6 dark:bg-black/40 border border-white/8 dark:border-white/6 rounded-2xl p-6 shadow-2xl">
+					<div className="mx-4 backdrop-blur-2xl bg-white/85 dark:bg-black/40 border border-slate-200/70 dark:border-white/6 rounded-2xl p-6 shadow-2xl transition-colors">
 						<div className="flex items-center justify-between mb-4">
-							<div className="text-lg font-semibold text-white/95">Menu</div>
-							<button onClick={() => setOpen(false)} className="p-2 rounded-md text-slate-100 hover:bg-white/6 transition">
-								<X className="w-6 h-6 text-blue-300" />
+							<div className="text-lg font-semibold text-slate-900 dark:text-white/95">Menu</div>
+							<button onClick={() => setOpen(false)} className="p-2 rounded-md text-slate-900 dark:text-slate-100 hover:bg-white/60 dark:hover:bg-white/6 transition">
+								<X className="w-6 h-6 text-blue-500 dark:text-blue-300" />
 							</button>
 						</div>
 
@@ -103,7 +116,7 @@ function Navbar() {
 									<a
 										href={l.href}
 										onClick={() => setOpen(false)}
-										className={`block italic text-3xl font-semibold text-white py-2 rounded transition hover:text-cyan-300`}
+										className={`block italic text-3xl font-semibold text-slate-900 dark:text-white py-2 rounded transition hover:text-cyan-300`}
 									>
 										{l.name}
 									</a>
@@ -112,7 +125,7 @@ function Navbar() {
 						</ul>
 
 						<div className="mt-6">
-							<a href="#contact" onClick={() => setOpen(false)} className="inline-block w-full text-center bg-cyan-400/10 text-cyan-300 px-4 py-3 rounded-full font-medium transition hover:bg-cyan-400/20">
+							<a href="#contact" onClick={() => setOpen(false)} className="inline-block w-full text-center bg-cyan-400/10 text-cyan-600 dark:text-cyan-300 px-4 py-3 rounded-full font-medium transition hover:bg-cyan-400/20">
 								Let's connect
 							</a>
 						</div>

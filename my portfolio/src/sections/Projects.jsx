@@ -74,12 +74,12 @@ export default function ProjectsSection() {
       id="projects"
       className="py-12 sm:py-16 lg:py-24"
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-12">
-        <div className="rounded-3xl bg-[#050505]/95 border border-slate-900/80 shadow-xl p-4 sm:p-6 lg:p-10">
+      <div className="container mx-auto px-3 sm:px-5 lg:px-12">
+        <div className="rounded-3xl bg-white/70 dark:bg-[#050505]/95 border border-slate-200/70 dark:border-slate-900/80 shadow-xl p-4 sm:p-6 lg:p-10 transition-colors">
           <div className="mb-8 sm:mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
             <div>
-              <h2 className="text-2xl lg:text-3xl font-semibold text-white">Project Gallery</h2>
-              <p className="mt-2 text-sm text-slate-300">
+              <h2 className="text-2xl lg:text-3xl font-semibold text-slate-900 dark:text-white">Project Gallery</h2>
+              <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
                 A selection of work focused on performance, UX, and production-ready quality.
               </p>
             </div>
@@ -107,9 +107,9 @@ export default function ProjectsSection() {
                 >
                   {/* Text side (sticky on lg) */}
                   <div className="lg:w-2/5 lg:sticky lg:top-24 self-start space-y-3 sm:space-y-4">
-                    <p className="text-xs uppercase tracking-[0.25em] text-slate-400">{p.category}</p>
-                    <h3 className="text-xl lg:text-2xl font-semibold text-white">{p.title}</h3>
-                    <p className="text-sm text-slate-300 leading-relaxed">{p.desc}</p>
+                    <p className="text-xs uppercase tracking-[0.25em] text-slate-500 dark:text-slate-400">{p.category}</p>
+                    <h3 className="text-xl lg:text-2xl font-semibold text-slate-900 dark:text-white">{p.title}</h3>
+                    <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">{p.desc}</p>
 
                     <div className="mt-4 sm:mt-5 flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3">
                       <a
@@ -140,7 +140,7 @@ export default function ProjectsSection() {
 						aria-disabled={!hasCode}
 						className={`group/cta inline-flex w-full sm:w-auto justify-center items-center gap-2 rounded-full border px-4 py-2 text-sm font-medium transition-all duration-300 ${
 							hasCode
-								? 'border-slate-700 bg-transparent text-slate-200 hover:border-indigo-500/60 hover:bg-slate-900/60'
+									? 'border-slate-300 dark:border-slate-700 bg-transparent text-slate-800 dark:text-slate-200 hover:border-indigo-500/60 hover:bg-white dark:hover:bg-slate-900/60'
 								: 'border-slate-800/60 bg-transparent text-slate-400 opacity-60 cursor-not-allowed'
 						}`}
                       >
@@ -153,16 +153,16 @@ export default function ProjectsSection() {
 
                   {/* Image / browser mockup side */}
                   <div className="lg:w-3/5">
-                    <div className="relative overflow-hidden rounded-2xl border border-slate-800/80 bg-slate-950/80 shadow-2xl shadow-black/40 backdrop-blur-xl transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.02] lg:group-hover:-rotate-[0.35deg]">
+                    <div className="relative overflow-hidden rounded-2xl border border-slate-200/70 dark:border-slate-800/80 bg-white dark:bg-slate-950/80 shadow-2xl shadow-black/10 dark:shadow-black/40 backdrop-blur-xl transition-transform duration-700 ease-out will-change-transform group-hover:scale-[1.02] lg:group-hover:-rotate-[0.35deg] transition-colors">
                       {/* Browser chrome */}
-                      <div className="flex items-center justify-between border-b border-slate-800 bg-slate-900/90 px-4 py-2">
+                      <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-slate-900/90 px-4 py-2 transition-colors">
                         <div className="flex items-center gap-1.5">
                           <span className="h-2.5 w-2.5 rounded-full bg-red-500/80" />
                           <span className="h-2.5 w-2.5 rounded-full bg-amber-400/80" />
                           <span className="h-2.5 w-2.5 rounded-full bg-emerald-500/80" />
                         </div>
-                        <div className="h-5 flex-1 mx-2 sm:mx-4 rounded-full bg-slate-800/80" />
-                        <div className="h-3 w-10 rounded-full bg-slate-800/80" />
+                        <div className="h-5 flex-1 mx-2 sm:mx-4 rounded-full bg-slate-200 dark:bg-slate-800/80 transition-colors" />
+                        <div className="h-3 w-10 rounded-full bg-slate-200 dark:bg-slate-800/80 transition-colors" />
                       </div>
 
                       {/* Screenshot area */}

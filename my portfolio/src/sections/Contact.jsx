@@ -23,10 +23,7 @@ export default function ContactSection() {
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    if (typeof IntersectionObserver === 'undefined') {
-      setInView(true)
-      return
-    }
+    if (typeof IntersectionObserver === 'undefined') return
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -102,27 +99,27 @@ export default function ContactSection() {
   }
 
   return (
-    <section id="contact" ref={ref} className={`py-14 sm:py-16 lg:py-24 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+    <section id="contact" ref={ref} className={`py-8 sm:py-16 lg:py-24 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
+      <div className="container mx-auto px-3 sm:px-5 lg:px-12">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-8 items-start">
 
           {/* Left: contact card/form */}
           <div className="col-span-1 lg:col-span-7">
-            <div className="backdrop-blur-2xl bg-slate-950/60 border border-cyan-400/20 rounded-3xl p-5 sm:p-6 lg:p-8 shadow-xl">
-              <div className="flex items-start gap-4">
-                <div className="p-3 rounded-lg bg-white/5">
+            <div className="backdrop-blur-2xl bg-white/70 dark:bg-slate-950/60 border border-slate-200/70 dark:border-cyan-400/20 rounded-3xl p-3 sm:p-5 lg:p-6 shadow-xl transition-colors">
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="p-2.5 sm:p-3 rounded-lg bg-slate-900/5 dark:bg-white/5">
                   <Mail className="w-6 h-6 text-cyan-300" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-semibold text-cyan-300">Get In Touch</h2>
-                  <p className="text-sm text-white/70 mt-1">Whether you have a project idea or want to say hi, my inbox is open.</p>
+                  <h2 className="text-2xl font-semibold text-cyan-700 dark:text-cyan-300">Get In Touch</h2>
+                  <p className="text-sm text-slate-600 dark:text-white/70 mt-1">Whether you have a project idea or want to say hi, my inbox is open.</p>
                 </div>
               </div>
 
-              <form onSubmit={handleSubmit} className="mt-6 grid grid-cols-1 gap-4">
+              <form onSubmit={handleSubmit} className="mt-3 sm:mt-6 grid grid-cols-1 gap-2.5 sm:gap-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <label className="flex flex-col">
-                    <span className="text-xs text-white/70 mb-1">Name</span>
+                    <span className="text-xs text-slate-600 dark:text-white/70 mb-1">Name</span>
                     <input
                       value={form.name}
                       onChange={update('name')}
@@ -130,12 +127,12 @@ export default function ContactSection() {
                       name="name"
                       autoComplete="name"
                       required
-                      className="w-full bg-white/3 placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition"
+                      className="w-full bg-slate-900/5 dark:bg-white/3 placeholder:text-slate-500 dark:placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition"
                     />
                   </label>
 
                   <label className="flex flex-col">
-                    <span className="text-xs text-white/70 mb-1">Email</span>
+                    <span className="text-xs text-slate-600 dark:text-white/70 mb-1">Email</span>
                     <input
                       value={form.email}
                       onChange={update('email')}
@@ -145,21 +142,21 @@ export default function ContactSection() {
                       autoComplete="email"
                       inputMode="email"
                       required
-                      className="w-full bg-white/3 placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition"
+                      className="w-full bg-slate-900/5 dark:bg-white/3 placeholder:text-slate-500 dark:placeholder:text-white/40 px-3 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition"
                     />
                   </label>
                 </div>
 
                 <label className="flex flex-col">
-                  <span className="text-xs text-white/70 mb-1">Message</span>
+                  <span className="text-xs text-slate-600 dark:text-white/70 mb-1">Message</span>
                   <textarea
                     value={form.message}
                     onChange={update('message')}
-                    rows={6}
+                    rows={3}
                     placeholder="Tell me about your project..."
                     name="message"
                     required
-                    className="w-full bg-white/3 placeholder:text-white/40 px-3 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition resize-none"
+                    className="w-full h-24 sm:h-auto bg-slate-900/5 dark:bg-white/3 placeholder:text-slate-500 dark:placeholder:text-white/40 px-3 py-2.5 rounded-lg focus:outline-none focus:ring-2 focus:ring-cyan-400/30 transition resize-none"
                   />
                 </label>
 
@@ -183,37 +180,37 @@ export default function ContactSection() {
 
           {/* Right: contact info & map */}
           <div className="col-span-1 lg:col-span-5">
-            <div className="backdrop-blur-2xl bg-slate-950/60 border border-cyan-400/20 rounded-3xl p-5 sm:p-6 shadow-xl h-full flex flex-col justify-between">
+            <div className="backdrop-blur-2xl bg-white/70 dark:bg-slate-950/60 border border-slate-200/70 dark:border-cyan-400/20 rounded-3xl p-3 sm:p-5 shadow-xl flex flex-col justify-start transition-colors">
               <div>
-                <h3 className="text-lg font-semibold text-white/90">Contact Info</h3>
-                <p className="text-sm text-white/70 mt-2">Prefer email? Use the form, or reach out on socials below.</p>
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white/90">Contact Info</h3>
+                <p className="text-sm text-slate-600 dark:text-white/70 mt-2">Prefer email? Use the form, or reach out on socials below.</p>
 
-                <ul className="mt-4 space-y-3">
+                <ul className="mt-3 sm:mt-4 space-y-2.5 sm:space-y-3">
                   <li className="flex items-start gap-3">
-                    <div className="p-2 rounded-md bg-white/5"><Mail className="w-5 h-5 text-cyan-300" /></div>
+                    <div className="p-2 rounded-md bg-slate-900/5 dark:bg-white/5"><Mail className="w-5 h-5 text-cyan-300" /></div>
                     <a
                       href="mailto:sakhawatashnaiy09@gmail.com"
-                      className="text-sm text-white/90 break-all hover:text-cyan-200 transition"
+                      className="text-sm text-slate-800 dark:text-white/90 break-all hover:text-cyan-600 dark:hover:text-cyan-200 transition"
                     >
                       sakhawatashnaiy09@gmail.com
                     </a>
                   </li>
 
                   <li className="flex items-start gap-3">
-                    <div className="p-2 rounded-md bg-white/5"><MapPin className="w-5 h-5 text-cyan-300" /></div>
-                    <div className="text-sm text-white/90 break-words">Remote • Available Worldwide</div>
+                    <div className="p-2 rounded-md bg-slate-900/5 dark:bg-white/5"><MapPin className="w-5 h-5 text-cyan-300" /></div>
+                    <div className="text-sm text-slate-800 dark:text-white/90 break-words">Remote • Available Worldwide</div>
                   </li>
                 </ul>
               </div>
 
-              <div className="mt-6">
-                <h4 className="text-sm text-white/80 mb-3">Socials</h4>
+              <div className="mt-3 sm:mt-6">
+                <h4 className="text-sm text-slate-700 dark:text-white/80 mb-3">Socials</h4>
                 <div className="flex flex-col sm:flex-row flex-wrap items-stretch sm:items-center gap-3 w-full">
                   <a
                     href="https://github.com/sakhawatashnaiy/React-js-project"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-3 py-2 bg-white/3 rounded-full text-white/90 hover:bg-white/5 transition active:scale-[0.99]"
+                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-3 py-2 bg-slate-900/5 dark:bg-white/3 rounded-full text-slate-800 dark:text-white/90 hover:bg-slate-900/10 dark:hover:bg-white/5 transition active:scale-[0.99]"
                     aria-label="Open GitHub profile/repository"
                   >
                     <ExternalLink className="w-4 h-4 text-cyan-300" /> GitHub
@@ -222,14 +219,14 @@ export default function ContactSection() {
                     href="https://www.linkedin.com/in/sakhawat-hussain-897aa9289"
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-3 py-2 bg-white/3 rounded-full text-white/90 hover:bg-white/5 transition active:scale-[0.99]"
+                    className="inline-flex w-full sm:w-auto justify-center items-center gap-2 px-3 py-2 bg-slate-900/5 dark:bg-white/3 rounded-full text-slate-800 dark:text-white/90 hover:bg-slate-900/10 dark:hover:bg-white/5 transition active:scale-[0.99]"
                     aria-label="Open LinkedIn profile"
                   >
                     <ExternalLink className="w-4 h-4 text-cyan-300" /> LinkedIn
                   </a>
                 </div>
 
-                <div className="mt-6">
+                <div className="mt-3 sm:mt-6">
                   {/*
                     Responsive map iframe.
                     Replace `defaultQuery` with your address or coordinates.
@@ -240,11 +237,11 @@ export default function ContactSection() {
                     const q = encodeURIComponent(defaultQuery)
                     const mapSrc = `https://www.google.com/maps?q=${q}&output=embed`
                     return (
-                      <div className="w-full overflow-hidden rounded-xl border border-white/6">
+                      <div className="w-full overflow-hidden rounded-xl border border-slate-200/70 dark:border-white/6">
                         <iframe
                           title="Location map"
                           src={mapSrc}
-                          className="w-full h-40 sm:h-48 md:h-56 lg:h-44"
+                          className="w-full h-24 sm:h-36 md:h-44 lg:h-36"
                           loading="lazy"
                           referrerPolicy="no-referrer-when-downgrade"
                         />

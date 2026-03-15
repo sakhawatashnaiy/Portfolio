@@ -15,17 +15,27 @@ const FILTERS = ['All', 'Frontend', 'Backend', 'DevOps', 'Tools']
 export default function SkillsSection() {
   const ref = useRef(null)
   const cardRefs = useRef({})
-  const [inView, setInView] = useState(true)
+  const [inView, setInView] = useState(() => {
+    if (typeof window === 'undefined') return true
+    return typeof IntersectionObserver === 'undefined'
+  })
   const [filter, setFilter] = useState('All')
   const [expanded, setExpanded] = useState(null)
+
+  const hasAnimated = useRef(false)
+  const rafId = useRef(null)
+  const [levelProgress, setLevelProgress] = useState(() => {
+    const initial = {}
+    SKILLS.forEach((s) => {
+      initial[s.id] = 0
+    })
+    return initial
+  })
 
   useEffect(() => {
     const el = ref.current
     if (!el) return
-    if (typeof IntersectionObserver === 'undefined') {
-      setInView(true)
-      return
-    }
+    if (typeof IntersectionObserver === 'undefined') return
     const obs = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
@@ -40,6 +50,41 @@ export default function SkillsSection() {
     obs.observe(el)
     return () => obs.disconnect()
   }, [])
+
+  useEffect(() => {
+    if (!inView) return
+    if (hasAnimated.current) return
+
+    hasAnimated.current = true
+
+    const durationMs = 900
+    const start = performance.now()
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3)
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / durationMs)
+      const eased = easeOutCubic(t)
+
+      setLevelProgress(() => {
+        const next = {}
+        SKILLS.forEach((s) => {
+          next[s.id] = Math.round(s.level * eased)
+        })
+        return next
+      })
+
+      if (t < 1) {
+        rafId.current = requestAnimationFrame(tick)
+      }
+    }
+
+    rafId.current = requestAnimationFrame(tick)
+
+    return () => {
+      if (rafId.current) cancelAnimationFrame(rafId.current)
+    }
+  }, [inView])
 
   const filtered = SKILLS.filter((s) => filter === 'All' || s.cat === filter)
 
@@ -63,11 +108,11 @@ export default function SkillsSection() {
 
   return (
     <section id="skills" ref={ref} className={`py-16 lg:py-24 transition-all duration-700 ${inView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-6'}`}>
-      <div className="container mx-auto px-6 lg:px-12">
+      <div className="container mx-auto px-3 sm:px-5 lg:px-12">
         <div className="mb-6 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div>
-            <h2 className="text-2xl lg:text-3xl font-semibold text-cyan-300">Skills & Tools</h2>
-            <p className="text-sm text-white/70 mt-1">Technical skills showcased with proficiency and focused filters.</p>
+            <h2 className="text-2xl lg:text-3xl font-semibold text-cyan-700 dark:text-cyan-300">Skills & Tools</h2>
+            <p className="text-sm text-slate-600 dark:text-white/70 mt-1">Technical skills showcased with proficiency and focused filters.</p>
           </div>
 
           <div className="-mx-6 px-6 md:mx-0 md:px-0 flex gap-2 items-center overflow-x-auto py-2 touch-pan-x snap-x snap-mandatory scroll-px-6">
@@ -75,7 +120,7 @@ export default function SkillsSection() {
               <button
                 key={f}
                 onClick={() => setFilter(f)}
-                className={`snap-start whitespace-nowrap px-3 py-1 rounded-full text-sm font-medium transition ${filter === f ? 'bg-cyan-400/10 text-cyan-300 ring-1 ring-cyan-400/20' : 'text-white/70 hover:bg-white/5'}`}
+                className={`snap-start whitespace-nowrap px-3 py-1 rounded-full text-sm font-medium transition ${filter === f ? 'bg-cyan-400/10 text-cyan-700 dark:text-cyan-300 ring-1 ring-cyan-400/20' : 'text-slate-600 dark:text-white/70 hover:bg-slate-900/5 dark:hover:bg-white/5'}`}
               >
                 {f}
               </button>
@@ -93,29 +138,32 @@ export default function SkillsSection() {
                 onPointerMove={(e) => onCardMove(e, s.id)}
                 onPointerLeave={() => onCardLeave(s.id)}
                 onClick={() => setExpanded(expanded === s.id ? null : s.id)}
-                className={`group cursor-pointer select-none backdrop-blur-2xl bg-slate-950/60 border border-cyan-400/20 rounded-2xl p-4 transition-all duration-300 active:scale-[0.99] sm:hover:-translate-y-3 hover:shadow-2xl overflow-hidden will-change-transform`}
+                className={`group cursor-pointer select-none backdrop-blur-2xl bg-white/70 dark:bg-slate-950/60 border border-slate-200/70 dark:border-cyan-400/20 rounded-2xl p-4 transition-all duration-300 active:scale-[0.99] sm:hover:-translate-y-3 hover:shadow-2xl overflow-hidden will-change-transform`}
                 style={{ transitionDelay: `${i * 60}ms` }}
               >
                 <div className="flex items-center gap-3">
-                  <div className="p-3 rounded-lg bg-white/5">
+                  <div className="p-3 rounded-lg bg-slate-900/5 dark:bg-white/5">
                     <Icon className="w-6 h-6 text-cyan-300" />
                   </div>
                   <div>
-                    <h3 className="text-lg font-semibold text-white">{s.name}</h3>
-                    <div className="text-xs text-white/60">{s.cat}</div>
+                    <h3 className="text-lg font-semibold text-slate-900 dark:text-white">{s.name}</h3>
+                    <div className="text-xs text-slate-600 dark:text-white/60">{s.cat}</div>
                   </div>
-                  <div className="ml-auto text-sm text-white/60">{s.level}%</div>
+                  <div className="ml-auto text-sm text-slate-600 dark:text-white/60">{levelProgress[s.id] ?? 0}%</div>
                 </div>
 
                 <div className="mt-4">
-                  <div className="w-full bg-white/6 rounded-full h-2 overflow-hidden">
-                    <div className={`h-2 bg-cyan-400 transition-all duration-1000 ease-out`} style={{ width: inView ? `${s.level}%` : '0%' }} />
+                  <div className="w-full bg-slate-900/10 dark:bg-white/6 rounded-full h-2 overflow-hidden">
+                    <div
+                      className={`h-2 bg-cyan-400 transition-all duration-1000 ease-out`}
+                      style={{ width: inView ? `${levelProgress[s.id] ?? 0}%` : '0%' }}
+                    />
                   </div>
                 </div>
 
                 <div className="mt-3 flex flex-wrap gap-2">
                   {s.tags.map((t) => (
-                    <span key={t} className="inline-flex items-center gap-2 text-xs text-white/90 bg-white/3 px-2 py-1 rounded-full">
+                    <span key={t} className="inline-flex items-center gap-2 text-xs text-slate-800 dark:text-white/90 bg-slate-900/5 dark:bg-white/3 px-2 py-1 rounded-full">
                       <span className="w-2 h-2 bg-cyan-300 rounded-full" />
                       <span className="whitespace-nowrap">{t}</span>
                     </span>
@@ -123,7 +171,7 @@ export default function SkillsSection() {
                 </div>
 
                 <div className={`mt-4 overflow-hidden transition-all duration-300 ${expanded === s.id ? 'max-h-48 sm:max-h-40' : 'max-h-0'}`}>
-                  <p className="text-sm text-white/70">{s.desc}</p>
+                  <p className="text-sm text-slate-600 dark:text-white/70">{s.desc}</p>
                 </div>
               </article>
             )
