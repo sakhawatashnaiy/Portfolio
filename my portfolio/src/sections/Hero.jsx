@@ -56,8 +56,10 @@ export default function HeroSection() {
                     className="hero-title-glow italic font-extrabold leading-tight tracking-tight text-3xl sm:text-4xl lg:text-4xl text-slate-900 dark:text-white anim-fade-up anim-delay-120"
                   >
                     <span className="whitespace-nowrap">Hi, I’m</span>{' '}
-                    <span className="whitespace-nowrap">Sakhawat Ashnaiy</span>,{' '}
-                    <span className="whitespace-nowrap">a MERN Stack Developer</span>
+                    <span className="whitespace-nowrap">Sakhawat</span>{' '}
+                    <span className="whitespace-nowrap">Ashnaiy</span>,{' '}
+                    <span className="whitespace-nowrap">a full stack</span>{' '}
+                    <span className="whitespace-nowrap">developer</span>
                   </h4>
 
                   <p
