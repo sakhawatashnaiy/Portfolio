@@ -6,6 +6,7 @@ import clothingImg from '../assets/clothing world.jpg'
 import salonImg from '../assets/beautysaloon.jpeg'
 import realEstateImg from '../assets/Real state.jpg'
 import gymImg from '../assets/Gym website.png'
+import nexusImg from '../assets/nexus.png'
 
 export default function ProjectsSection() {
   // Project data
@@ -25,7 +26,7 @@ export default function ProjectsSection() {
         title: 'NEXSUS Platform',
         desc: 'An investor-ready collaboration platform that unifies projects, documents, meetings, and payments in one audit-friendly workspace with clear status and compliance-friendly history.',
         category: 'Platform',
-        image: null,
+        image: nexusImg,
         code: 'https://github.com/sakhawatashnaiy/Nexsus-Github-Repo.git',
         demo: 'https://nexsus-github-repo.vercel.app/',
       },
