@@ -1,16 +1,72 @@
-# React + Vite
+# My Portfolio (React + Vite + Tailwind)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A modern personal portfolio website built with React and Vite, styled with Tailwind CSS. It includes a project gallery (with GitHub + live demo links), skills, an about section, and a contact form.
 
-Currently, two official plugins are available:
+## What’s inside
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- **Hero / About / Skills / Projects / Contact** sections
+- **Project cards** with live demo + source code buttons
+- **Contact form** powered by EmailJS (with a mailto fallback if EmailJS isn’t configured)
+- **Responsive layout** and dark-mode friendly styling
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- React
+- Vite
+- Tailwind CSS
+- lucide-react (icons)
+- EmailJS (contact form)
 
-## Expanding the ESLint configuration
+## Run locally
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the dev server:
+
+```bash
+npm run dev
+```
+
+Build for production:
+
+```bash
+npm run build
+```
+
+Preview the production build:
+
+```bash
+npm run preview
+```
+
+## Contact form (EmailJS)
+
+The contact form reads these environment variables:
+
+- `VITE_EMAILJS_SERVICE_ID`
+- `VITE_EMAILJS_TEMPLATE_ID`
+- `VITE_EMAILJS_PUBLIC_KEY`
+
+Create a `.env` file in the project root:
+
+```bash
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+If you don’t set these, the form will open your default email app as a fallback (mailto).
+
+## Project structure
+
+- `src/components/` — shared UI components (Navbar, Footer)
+- `src/sections/` — page sections (Hero, About, Skills, Projects, Contact)
+- `public/assets/` — images used by the site
+
+## Deploy
+
+You can deploy this easily on Vercel/Netlify. If you’re using EmailJS, add the same `VITE_EMAILJS_*` variables in your hosting provider’s environment settings.

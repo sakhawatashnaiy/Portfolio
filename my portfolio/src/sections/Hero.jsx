@@ -44,7 +44,7 @@ export default function HeroSection() {
             {/* Left column: content */}
             <div className="col-span-1 lg:col-span-6 pt-4">
               <div
-                className="backdrop-blur-md bg-white/70 dark:bg-white/10 border border-slate-200/70 dark:border-white/20 rounded-3xl p-8 sm:p-12 max-w-6xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.25)] dark:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] anim-fade-up transition-colors"
+                className="backdrop-blur-md bg-white/70 dark:bg-white/10 border border-slate-200/70 dark:border-white/20 rounded-3xl p-5 sm:p-10 lg:p-12 max-w-6xl shadow-[0_20px_50px_rgba(8,_112,_184,_0.25)] dark:shadow-[0_20px_50px_rgba(8,_112,_184,_0.7)] anim-fade-up transition-colors"
               >
                 <div className="space-y-5">
                   <div className="inline-flex items-center gap-2 rounded-full bg-slate-900/5 dark:bg-white/10 backdrop-blur-md border border-slate-200/70 dark:border-white/20 px-3 py-1 text-[11px] sm:text-xs font-medium text-sky-700 dark:text-sky-100">
@@ -55,7 +55,9 @@ export default function HeroSection() {
                   <h4
                     className="hero-title-glow italic font-extrabold leading-tight tracking-tight text-3xl sm:text-4xl lg:text-4xl text-slate-900 dark:text-white anim-fade-up anim-delay-120"
                   >
-                    Hi I am Sakhawat Ashnaiy,A  Mern Stack Developer
+                    <span className="whitespace-nowrap">Hi, I’m</span>{' '}
+                    <span className="whitespace-nowrap">Sakhawat Ashnaiy</span>,{' '}
+                    <span className="whitespace-nowrap">a MERN Stack Developer</span>
                   </h4>
 
                   <p
@@ -63,7 +65,7 @@ export default function HeroSection() {
                   >
                     In 2026, users expect fast, accessible, and smooth experiences. I build modern MERN
                     applications with clean UI, responsive design, secure APIs, and performance-first
-                    engineering  ready for production.
+                    engineering ready for production.
                   </p>
 
                   <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3 mt-3 anim-fade-up anim-delay-640">

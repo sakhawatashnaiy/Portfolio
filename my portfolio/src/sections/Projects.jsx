@@ -22,12 +22,12 @@ export default function ProjectsSection() {
       },
       {
         id: 'p-chat',
-        title: 'Nexus Platform',
-        desc: 'A scalable platform experience focused on performance, clean UX, and reliable integrations.',
+        title: 'NEXSUS Platform',
+        desc: 'An investor-ready collaboration platform that unifies projects, documents, meetings, and payments in one audit-friendly workspace with clear status and compliance-friendly history.',
         category: 'Platform',
         image: null,
-        code: '#',
-        demo: '#',
+        code: 'https://github.com/sakhawatashnaiy/Nexsus-Github-Repo.git',
+        demo: 'https://nexsus-github-repo.vercel.app/',
       },
       {
         id: 'p-clothing',
