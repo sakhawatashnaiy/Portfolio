@@ -7,6 +7,8 @@ import salonImg from '../assets/beautysaloon.jpeg'
 import realEstateImg from '../assets/Real state.jpg'
 import gymImg from '../assets/Gym website.png'
 import nexusImg from '../assets/nexus.png'
+import coffeeImg from '../assets/cofee3.png'
+import juiceImg from '../assets/juice1.png'
 
 export default function ProjectsSection() {
   // Project data
@@ -65,6 +67,24 @@ export default function ProjectsSection() {
         image: gymImg,
         code: '#',
         demo: '#',
+      },
+      {
+        id: 'p-coffee',
+        title: 'Coffee Shop Website',
+        desc: 'A cozy coffee shop experience with a featured menu, gallery highlights, and quick ordering call-to-actions.',
+        category: 'Business',
+        image: coffeeImg,
+        code: 'https://github.com/sakhawatashnaiy/cofeebar.git',
+        demo: 'https://mycofee.vercel.app/',
+      },
+      {
+        id: 'p-juice',
+        title: 'Juice Shop Website',
+        desc: 'A fresh juice brand landing page with product highlights, offers, and an easy contact path.',
+        category: 'Business',
+        image: juiceImg,
+        code: 'https://github.com/sakhawatashnaiy/clientsproject.git',
+        demo: 'https://clientsproject-eight.vercel.app/',
       },
     ],
     []
